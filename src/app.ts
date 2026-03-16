@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import cors from "cors"
 import { envConfig } from "./config/env";
+import { notFound } from "./middleware/notFound";
 const app: Application = express();
 app.use(cors({
     origin: [envConfig.FRONTEND_URL || "http://localhost:3000", envConfig.BETTER_AUTH_URL || "http://localhost:5000"],
@@ -9,4 +10,5 @@ app.use(cors({
     allowedHeaders: ["content-type", "Authorization"]
 }))
 app.use(express.json());
+app.use(notFound)
 export default app;
