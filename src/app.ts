@@ -5,6 +5,7 @@ import { notFound } from "./middleware/notFound";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./app/lib/auth";
 const app: Application = express();
+app.use(express.json());
 app.use(cors({
     origin: [envConfig.FRONTEND_URL || "http://localhost:3000", envConfig.BETTER_AUTH_URL || "http://localhost:5000"],
     credentials: true,
@@ -12,6 +13,10 @@ app.use(cors({
     allowedHeaders: ["content-type", "Authorization"]
 }))
 app.use("/api/auth", toNodeHandler(auth))
-app.use(express.json());
+
+
+app.get('/', (req, res) => {
+    res.send("Helps Near successfully running")
+});
 app.use(notFound)
 export default app;
