@@ -1,10 +1,28 @@
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN', 'VOLUNTEER');
+
+-- CreateEnum
+CREATE TYPE "Status" AS ENUM ('BLOCKED', 'DELETED', 'ACTIVE');
+
+-- CreateEnum
+CREATE TYPE "BloodGroup" AS ENUM ('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE');
+
 -- CreateTable
 CREATE TABLE "user" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
     "emailVerified" BOOLEAN NOT NULL DEFAULT false,
-    "image" TEXT,
+    "phone" TEXT,
+    "role" "Role" NOT NULL DEFAULT 'USER',
+    "latitude" DOUBLE PRECISION,
+    "longitude" DOUBLE PRECISION,
+    "status" "Status" NOT NULL DEFAULT 'ACTIVE',
+    "isVolunteer" BOOLEAN NOT NULL DEFAULT false,
+    "isAvailable" BOOLEAN NOT NULL DEFAULT false,
+    "profileImage" TEXT,
+    "bloodGroup" "BloodGroup" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

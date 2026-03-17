@@ -1,7 +1,9 @@
 import { betterAuth } from "better-auth";
 import { envConfig } from "../../config/env";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import prisma from "./prisma";
+import { prisma } from "./prisma";
+import { Role } from "../../generated/prisma/enums";
+
 
 export const auth = betterAuth({
     baseURL: envConfig.BETTER_AUTH_URL,
@@ -11,5 +13,15 @@ export const auth = betterAuth({
     }),
     emailAndPassword: {
         enabled: true,
+
+    },
+    user: {
+        additionalFields: {
+            role: {
+                type: "string",
+                required: true,
+                defaultValue: Role.USER
+            }
+        }
     }
 });
