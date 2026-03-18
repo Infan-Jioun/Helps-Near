@@ -12,7 +12,7 @@ const verifyToken = (token: string, secret: string) => {
             success: true,
             data: decoded
         }
-        
+
     } catch (error: any) {
         return {
             success: false,
@@ -20,4 +20,8 @@ const verifyToken = (token: string, secret: string) => {
             error
         }
     }
+}
+const decodeToken = (token: string) => {
+    const decode = jwt.decode(token) as JwtPayload
+    return decode
 }
