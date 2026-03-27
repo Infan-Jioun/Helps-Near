@@ -1,6 +1,6 @@
 import status from "http-status";
 import z from "zod";
-import { TErrorResponce, TErrorSource } from "../interface/errro.interface";
+import { TErrorResponce, TErrorSource } from "../interface/errror.interface";
 
 
 export const handelZodError = (err: z.ZodError): TErrorResponce => {

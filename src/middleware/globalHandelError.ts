@@ -5,7 +5,7 @@ import status from "http-status";
 import { envConfig } from "../config/env";
 import { handelZodError } from "../app/errorHelper/handelZodError";
 import AppError from "../app/errorHelper/appError";
-import { TErrorResponce, TErrorSource } from "../app/interface/errro.interface";
+import { TErrorResponce, TErrorSource } from "../app/interface/errror.interface";
 
 
 

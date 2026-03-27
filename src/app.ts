@@ -9,6 +9,7 @@ import { authRouter } from "./app/module/auth/auth.router";
 import path from "path";
 import qs from "qs";
 import { emergencyRouter } from "./app/module/emergency/emergency.router";
+import { globalErrorHandlar } from "./middleware/globalHandelError";
 const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,6 +29,6 @@ app.use("/api/v1/emergency", emergencyRouter)
 app.get('/', (req, res) => {
     res.send("Helps Near successfully running")
 });
-
+app.use(globalErrorHandlar)
 app.use(notFound)
 export default app;
