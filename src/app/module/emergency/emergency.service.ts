@@ -1,6 +1,6 @@
 
 import { prisma } from "../../lib/prisma";
-import { ICreateEmargency } from "./emergency.interface"
+import { ICreateEmargency, IUpdateEmergency } from "./emergency.interface"
 
 const createEmargency = async (userId: string, payload: ICreateEmargency) => {
     const result = await prisma.emergency.create({
@@ -48,7 +48,7 @@ const getEmargencyById = async (id: string) => {
     return emergency;
 };
 
-const updateEmargency = async (id: string, userId: string, userRole: string, payload: Partial<ICreateEmargency>) => {
+const updateEmargency = async (id: string, userId: string, userRole: string, payload: IUpdateEmergency) => {
     const emergency = await prisma.emergency.findUnique({ where: { id } });
     if (!emergency) throw new Error("Emergency not found");
     if (emergency.userId !== userId && userRole !== "ADMIN") {
