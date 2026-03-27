@@ -23,10 +23,11 @@ app.use(cors({
 app.set("query parser", (str: string) => qs.parse(str));
 app.use("/api/auth", toNodeHandler(auth))
 app.use(cookieParser());
-app.use("/api/v1/auth", authRouter)
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/emergency", emergencyRouter)
 app.get('/', (req, res) => {
     res.send("Helps Near successfully running")
 });
-app.use("/emergency", emergencyRouter)
+
 app.use(notFound)
 export default app;
