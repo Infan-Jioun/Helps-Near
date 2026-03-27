@@ -8,7 +8,7 @@ interface IEnvConfig {
     FRONTEND_URL: string
     BETTER_AUTH_URL: string
     BETTER_AUTH_SECRET: string
-    DATABASE_URL: string
+    DATABASE_URL: string,
     EMAIL_SENDER_SMTP_USER: string
     EMAIL_SENDER_SMTP_PASS: string
     EMAIL_SENDER_SMTP_HOST: string

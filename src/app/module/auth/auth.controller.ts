@@ -11,7 +11,7 @@ import { cookieUtils } from "../../utils/cookie";
 const createUser = catchAsync(
     async (req: Request, res: Response) => {
         const payload = req.body;
-        console.log("User info",payload)
+        console.log("User info", payload)
         const result = await authService.createUser(payload as ICreateUserPayload);
         const { accessToken, refreshToken, token, ...rest } = result;
 
@@ -55,6 +55,17 @@ const loginUser = catchAsync(
     }
 
 )
+const getMyProfile = catchAsync(async (req: Request, res: Response) => {
+    const userId = req.user?.userId;
+    const result = await authService.getMyProfile(userId as string);
+
+    sendResposne(res, {
+        httpStatusCode: status.OK,
+        success: true,
+        message: "Profile fetched successfully",
+        data: result,
+    });
+});
 const verifyEmail = catchAsync(
     async (req: Request, res: Response) => {
         const { otp, email } = req.body;
@@ -127,6 +138,7 @@ const getNewToken = catchAsync(
 export const authController = {
     createUser,
     loginUser,
+    getMyProfile,
     verifyEmail,
     logout,
     getNewToken

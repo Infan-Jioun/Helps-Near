@@ -88,6 +88,32 @@ const loginUser = async (paylaod: ILoginUserPayload) => {
     }
 
 }
+const getMyProfile = async (userId: string) => {
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+            role: true,
+            status: true,
+            isVolunteer: true,
+            isAvailable: true,
+            profileImage: true,
+            bloodGroup: true,
+            latitude: true,
+            longitude: true,
+            createdAt: true,
+            volunteerProfile: true,
+            adminProfile: true,
+        },
+    });
+
+    if (!user) throw new Error("User not found");
+    return user;
+};
+
 const verifyEmail = async (otp: string, email: string) => {
     const result = await auth.api.verifyEmailOTP({
         body: {
@@ -167,6 +193,7 @@ const getNewToken = async (refreshToken: string, sessionToken: string) => {
 export const authService = {
     createUser,
     loginUser,
+    getMyProfile,
     verifyEmail,
     logout,
     getNewToken
