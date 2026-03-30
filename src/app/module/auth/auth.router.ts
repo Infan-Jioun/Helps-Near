@@ -10,6 +10,7 @@ router.post("/register", validateRequest(registerUserZodSchema), authController.
 router.post("/login", validateRequest(loginUserZodSchema), authController.loginUser)
 router.get("/me", checkAuth(Role.ADMIN, Role.USER, Role.VOLUNTEER), authController.getMyProfile);
 router.post("/verify-email", authController.verifyEmail)
+router.post("/resend-otp", authController.resendOtp)
 router.post("/logout", authController.logout)
 router.post("/refresh-token", authController.getNewToken)
 export const authRouter: Router = router

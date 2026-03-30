@@ -1,10 +1,10 @@
 import { betterAuth } from "better-auth";
 import { envConfig } from "../../config/env";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { Role } from "../../generated/prisma/enums";
 import { bearer, emailOTP } from "better-auth/plugins";
 import { sendEmail } from "../utils/email";
 import { prisma } from "./prisma";
+import { Role } from "../../generated/prisma/enums";
 
 
 export const auth = betterAuth({
@@ -23,15 +23,15 @@ export const auth = betterAuth({
         sendOnSignUp: true,
         autoSignInAfterVerification: true
     },
-    user: {
-        additionalFields: {
-            role: {
-                type: "string",
-                required: true,
-                defaultValue: Role.USER
-            }
-        }
-    },
+    // user: {
+    //     additionalFields: {
+    //         role: {
+    //             type: "string",
+    //             required: true,
+    //             defaultValue: Role.USER
+    //         }
+    //     }
+    // },
     plugins: [
         bearer(),
         emailOTP({
@@ -79,7 +79,7 @@ export const auth = betterAuth({
             state: {
                 attributes: {
                     sameSite: "none",
-                    secure: true,
+                    secure: false,
                     httpOnly: true,
                     path: "/"
                 },

@@ -7,6 +7,66 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  USER
+  ADMIN
+  VOLUNTEER
+}
+
+enum Status {
+  BLOCKED
+  DELETED
+  ACTIVE
+}
+
+enum BloodGroup {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+}
+
+enum EmergencyType {
+  MEDICAL
+  FIRE
+  ACCIDENT
+  FLOOD
+  CRIME
+  OTHER
+}
+
+enum EmergencyStatus {
+  PENDING
+  ACCEPTED
+  IN_PROGRESS
+  RESOLVED
+  CANCELLED
+}
+
+enum VolunteerSkill {
+  FIRST_AID
+  FIREFIGHTING
+  RESCUE
+  MEDICAL
+  FLOOD_RESPONSE
+  GENERAL
+}
+
+enum PaymentMethod {
+  STRIPE
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
 model User {
   id               String              @id @default(uuid())
   name             String
@@ -204,64 +264,4 @@ model Notification {
 
   @@index([userId, isRead])
   @@map("notification")
-}
-
-enum Role {
-  USER
-  ADMIN
-  VOLUNTEER
-}
-
-enum Status {
-  BLOCKED
-  DELETED
-  ACTIVE
-}
-
-enum BloodGroup {
-  A_POSITIVE
-  A_NEGATIVE
-  B_POSITIVE
-  B_NEGATIVE
-  AB_POSITIVE
-  AB_NEGATIVE
-  O_POSITIVE
-  O_NEGATIVE
-}
-
-enum EmergencyType {
-  MEDICAL
-  FIRE
-  ACCIDENT
-  FLOOD
-  CRIME
-  OTHER
-}
-
-enum EmergencyStatus {
-  PENDING
-  ACCEPTED
-  IN_PROGRESS
-  RESOLVED
-  CANCELLED
-}
-
-enum VolunteerSkill {
-  FIRST_AID
-  FIREFIGHTING
-  RESCUE
-  MEDICAL
-  FLOOD_RESPONSE
-  GENERAL
-}
-
-enum PaymentMethod {
-  STRIPE
-}
-
-enum PaymentStatus {
-  PENDING
-  PAID
-  FAILED
-  REFUNDED
 }
