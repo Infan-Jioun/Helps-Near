@@ -3,7 +3,8 @@ import { authController } from "./auth.controller";
 import { loginUserZodSchema, registerUserZodSchema } from "./auth.validation";
 import { validateRequest } from "../../../middleware/validateRequest";
 import { checkAuth } from "../../../middleware/checkAuth";
-import { Role } from "../../../generated/prisma/enums";
+import { Role } from "../../../generated/prisma/client/enums";
+
 
 const router = express.Router();
 router.post("/register", validateRequest(registerUserZodSchema), authController.createUser)
