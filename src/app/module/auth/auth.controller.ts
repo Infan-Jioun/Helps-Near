@@ -78,6 +78,18 @@ const verifyEmail = catchAsync(
         })
     }
 )
+const resendOtp = catchAsync(
+    async (req: Request, res: Response) => {
+        const { email } = req.body;
+        const result = await authService.resendOtp(email);
+        sendResposne(res, {
+            httpStatusCode: status.OK,
+            success: true,
+            message: `Successfully OTP sent to ${email}`,
+            data: result
+        })
+    }
+)
 const logout = catchAsync(
     async (req: Request, res: Response) => {
         const betterAuthSessionToken = req.cookies["better-auth-session_token"];
@@ -140,6 +152,7 @@ export const authController = {
     loginUser,
     getMyProfile,
     verifyEmail,
+    resendOtp,
     logout,
     getNewToken
 }
