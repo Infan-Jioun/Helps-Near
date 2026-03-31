@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 import { envConfig } from "../../config/env";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { bearer, emailOTP } from "better-auth/plugins";
+import { bearer, emailOTP, oAuthProxy } from "better-auth/plugins";
 import { sendEmail } from "../utils/email";
 import { prisma } from "./prisma";
 import { Role } from "../../generated/prisma/client/enums";
@@ -60,17 +60,19 @@ export const auth = betterAuth({
             },
             expiresIn: 10 * 60,
             otpLength: 6
-        })
+        }),
+            oAuthProxy()
     ],
     trustedOrigins: [
-        process.env.BETTER_AUTH_URL || "http://localhost:5000", envConfig.FRONTEND_URL || "http://localhost:3000"
+        "http://localhost:3000",
+        process.env.FRONTEND_URL || "http://localhost:3000",
     ],
     session: {
-        expiresIn: 60 * 60 * 60 * 24,
-        updateAge: 60 * 60 * 60 * 24,
+        expiresIn: 60 * 60 * 24 * 7,
+        updateAge: 60 * 60 * 24,
         cookieCache: {
             enabled: true,
-            maxAge: 60 * 60 * 60 * 24,
+            maxAge: 60 * 60 * 24 * 7,
         }
     },
     advanced: {
@@ -79,9 +81,9 @@ export const auth = betterAuth({
             state: {
                 attributes: {
                     sameSite: "none",
-                    secure: false,
+                    secure: true,
                     httpOnly: true,
-                    path: "/"
+                    partitioned: true,
                 },
 
 
@@ -90,9 +92,10 @@ export const auth = betterAuth({
                     sameSite: "none",
                     secure: true,
                     httpOnly: true,
-                    path: "/"
+                    partitioned: true,
                 }
             }
         }
     }
+
 });

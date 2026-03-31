@@ -43,7 +43,7 @@ export const globalErrorHandlar = async (err: any, req: Request, res: Response, 
                 break;
             case "P2025":
                 statusCode = status.NOT_FOUND;
-                message = "Record not found";
+                message = "Not found";
                 errorSource = [{ path: "", message: "The requested record does not exist" }];
                 break;
             case "P2003":

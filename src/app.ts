@@ -13,30 +13,35 @@ import { globalErrorHandlar } from "./middleware/globalHandelError";
 import { userRouter } from "./app/module/user/user.router";
 import { volunteerRouter } from "./app/module/volunteer/volunteer.router";
 import { volunteerResponseRoutes } from "./app/module/volunteerresponse/volunteerresponse.router";
+import { paymentRouter } from "./app/module/payment/payment.router";
 // import { userRouter } from "./app/module/user/user.router";
 const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs")
 app.set("views", path.resolve(process.cwd(), `src/app/templates`))
+app.use(cookieParser());
 app.use(cors({
-    origin: [envConfig.FRONTEND_URL || "http://localhost:3000", envConfig.BETTER_AUTH_URL || "http://localhost:5000"],
+    origin: [
+        envConfig.FRONTEND_URL || "http://localhost:3000",
+    ],
     credentials: true,
-    methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
-    allowedHeaders: ["content-type", "Authorization"]
-}))
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["content-type", "Authorization", "Cookie", "Set-Cookie"],
+    exposedHeaders: ["Set-Cookie"],
+}));
 app.post("/webhook", express.raw({ type: "application/json" }), async (req: Request, res: Response) => {
     console.log("Webhook recivied:", req.body);
     res.status(200).json({ recivied: true })
 })
 app.set("query parser", (str: string) => qs.parse(str));
 app.use("/api/auth", toNodeHandler(auth))
-app.use(cookieParser());
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/emergency", emergencyRouter)
 app.use("/api/v1/volunteer", volunteerRouter)
 app.use("/api/v1/volunteer-response", volunteerResponseRoutes)
+app.use("/api/v1/payment", paymentRouter)
 app.get('/', (req, res) => {
     res.send("Helps Near successfully running")
 });

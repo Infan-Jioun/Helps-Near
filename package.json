@@ -12,12 +12,14 @@
     "push": "prisma db push",
     "pull": "prisma db pull",
     "stripe:webhook": "stripe listen --forward-to localhost:5000/webhook",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "prisma generate && tsc  && node scripts/fix-imports.js",
+    "build:tsup" : "tsup"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "@prisma/adapter-pg": "^7.5.0",
     "@prisma/client": "^7.5.0",
@@ -33,7 +35,8 @@
     "jsonwebtoken": "^9.0.3",
     "nodemailer": "^8.0.3",
     "pg": "^8.20.0",
-    "stripe": "^21.0.1"
+    "stripe": "^21.0.1",
+    "vercel": "^50.37.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
