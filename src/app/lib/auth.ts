@@ -8,7 +8,7 @@ import { Role } from "../../generated/prisma/client/enums";
 
 
 export const auth = betterAuth({
-    baseURL: envConfig.BETTER_AUTH_URL!,
+    baseURL: envConfig.BETTER_AUTH_URL! || "http://localhost:5000",
     secret: envConfig.BETTER_AUTH_SECRET!,
     database: prismaAdapter(prisma, {
         provider: "postgresql", // or "mysql", "postgresql", ...etc
@@ -18,11 +18,11 @@ export const auth = betterAuth({
 
     //     const allowedOrigins = [
     //         envConfig.FRONTEND_URL! || "https://helps-near-frontend.vercel.app",
-    //         envConfig.BETTER_AUTH_URL! || "helps-near-backend-blond.vercel.app",
+    //         envConfig.BETTER_AUTH_URL! || "https://helps-near-backend-blond.vercel.app",
     //         "https://helps-near-frontend.vercel.app",
-    //         "helps-near-backend-blond.vercel.app",
+    //         "https://helps-near-backend-blond.vercel.app",
     //         "https://helps-near-frontend.vercel.app",
-    //         "helps-near-backend-blond.vercel.app",
+    //         "https://helps-near-backend-blond.vercel.app",
     //     ].filter(Boolean);
 
 
@@ -36,7 +36,7 @@ export const auth = betterAuth({
 
     //     return [];
     // },
-   trustedOrigins : [process.env.FRONTEND_URL! || "https://helps-near-frontend.vercel.app", process.env.BETTER_AUTH_URL! || "helps-near-backend-blond.vercel.app"],
+    trustedOrigins: [process.env.FRONTEND_URL! || "https://helps-near-frontend.vercel.app", process.env.BETTER_AUTH_URL! || "https://helps-near-backend-blond.vercel.app"],
 
     emailAndPassword: {
         enabled: true,
