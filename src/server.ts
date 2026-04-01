@@ -1,15 +1,18 @@
 import app from "./app";
-import { envConfig } from "./config/env";
+import { prisma } from "./app/lib/prisma";
 
 
-const boostrap = () => {
+const bootstrap = async () => {
     try {
-        app.listen(envConfig.PORT, () => {
-            console.log(`Server is running on http://localhost:${envConfig.PORT}`);
+        await prisma.$connect();
+        app.listen(process.env.PORT, () => {
+            console.log(`Server is running on http://localhost:${process.env.PORT}`);
         });
-
     } catch (error) {
-        console.log("Failed  to start server : ", error);
+        console.error("Failed to start server:", error);
+        await prisma.$disconnect();
+        process.exit(1);
     }
-}
-boostrap();
+};
+
+bootstrap();

@@ -73,7 +73,6 @@ const deleteVolunteer = catchAsync(async (req: Request, res: Response) => {
         httpStatusCode: status.OK,
         success: true,
         message: result.message,
-        data: null,
     });
 });
 

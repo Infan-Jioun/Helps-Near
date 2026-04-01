@@ -15,8 +15,8 @@ export interface IUpdateVolunteerProfile {
 }
 
 export interface IVolunteerFilterRequest {
-    isVerified?: boolean;
-    isAvailable?: boolean;
+    isVerified?: boolean | undefined;
+    isAvailable?: boolean   | undefined;
     skills?: VolunteerSkill;
     district?: string;
     page?: number;

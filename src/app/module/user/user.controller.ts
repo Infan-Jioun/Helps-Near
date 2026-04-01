@@ -91,6 +91,17 @@ const updateMyProfile = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const deleteUser = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await userService.deleteUser(id as string);
+    sendResposne(res, {
+        httpStatusCode: status.OK,
+        success: true,
+        message: "Deleted user successfully",
+       
+        data: result
+    });
+});
 export const userController = {
     createVolunteer,
     getAllUsers,
@@ -98,4 +109,5 @@ export const userController = {
     updateUserRole,
     updateUserStatus,
     updateMyProfile,
+    deleteUser
 };

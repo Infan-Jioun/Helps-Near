@@ -13,22 +13,23 @@ const createUser = catchAsync(
         const payload = req.body;
         console.log("User info", payload)
         const result = await authService.createUser(payload as ICreateUserPayload);
-        const { accessToken, refreshToken, token, ...rest } = result;
+        // const { accessToken, refreshToken, token, ...rest } = result;
 
-        tokenUtils.setAccessTokenCookie(res, accessToken)
-        tokenUtils.setRefreshTokenCookie(res, refreshToken)
-        tokenUtils.setRefreshTokenCookie(res, refreshToken)
-        tokenUtils.setBetterAuthSessionCookie(res, token as string)
+        // tokenUtils.setAccessTokenCookie(res, accessToken)
+        // tokenUtils.setRefreshTokenCookie(res, refreshToken)
+        // tokenUtils.setRefreshTokenCookie(res, refreshToken)
+        // tokenUtils.setBetterAuthSessionCookie(res, token as string)
         console.log(result)
         sendResposne(res, {
             httpStatusCode: status.CREATED,
             success: true,
             message: "Successfully user created!",
-            data: {
-                accessToken,
-                refreshToken,
-                ...rest
-            }
+            // data: {
+            //     accessToken,
+            //     refreshToken,
+            //     ...rest
+            // }
+            data : result
         })
     }
 

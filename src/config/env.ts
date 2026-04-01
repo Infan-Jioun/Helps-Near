@@ -1,12 +1,15 @@
 import status from "http-status"
 
 import dotenv from "dotenv";
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+    dotenv.config();
+}
 interface IEnvConfig {
     PORT: string
     NODE_ENV: string
     FRONTEND_URL: string
     BETTER_AUTH_URL: string
+    BACKEND_URL: string
     BETTER_AUTH_SECRET: string
     DATABASE_URL: string,
     EMAIL_SENDER_SMTP_USER: string
@@ -29,6 +32,7 @@ const loadEnvVaribales = (): IEnvConfig => {
         "NODE_ENV",
         "FRONTEND_URL",
         "BETTER_AUTH_URL",
+        "BACKEND_URL",
         "BETTER_AUTH_SECRET",
         "DATABASE_URL",
         "EMAIL_SENDER_SMTP_USER",
@@ -56,6 +60,7 @@ const loadEnvVaribales = (): IEnvConfig => {
         NODE_ENV: process.env.NODE_ENV as string,
         FRONTEND_URL: process.env.FRONTEND_URL as string,
         BETTER_AUTH_URL: process.env.BETTER_AUTH_URL as string,
+        BACKEND_URL: process.env.BACKEND_URL as string,
         DATABASE_URL: process.env.DATABASE_URL as string,
         BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET as string,
         EMAIL_SENDER_SMTP_USER: process.env.EMAIL_SENDER_SMTP_USER as string,

@@ -218,6 +218,21 @@ const updateMyProfile = async (userId: string, payload: IUpdateMyProfile) => {
         },
     });
 };
+const deleteUser = async (userId: string) => {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new AppError(status.NOT_FOUND, "User not found");
+
+    await prisma.$transaction(async (tx) => {
+        if (user.isVolunteer) {
+            await tx.volunteerProfile.delete({ where: { userId } });
+        }
+        await tx.user.delete({ where: { id: userId } });
+    });
+
+    return { message: "User deleted successfully" };
+};
+
+
 
 export const userService = {
     createVolunteer,
@@ -226,4 +241,5 @@ export const userService = {
     updateUserRole,
     updateUserStatus,
     updateMyProfile,
+    deleteUser
 };

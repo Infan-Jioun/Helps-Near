@@ -17,4 +17,5 @@ router.patch("/:id", checkAuth(Role.ADMIN), validateRequest(UserValidation.updat
 );
 
 router.patch("/:id/status", checkAuth(Role.ADMIN), validateRequest(UserValidation.updateUserStatusSchema), userController.updateUserStatus);
+router.delete("/:id", checkAuth(Role.ADMIN), userController.deleteUser);
 export const userRouter: Router = router; 

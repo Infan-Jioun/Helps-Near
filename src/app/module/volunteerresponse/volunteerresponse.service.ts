@@ -32,7 +32,7 @@ const acceptEmergency = async (
             data: {
                 emergencyId,
                 volunteerId,
-                estimatedArrivalMin: payload.estimatedArrivalMin,
+                estimatedArrivalMin: payload.estimatedArrivalMin ?? null,
             },
             include: {
                 volunteer: {

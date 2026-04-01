@@ -7,7 +7,7 @@ Helps Near is an emergency response platform where users can report emergencies 
 ## 🌐 Live URL
 
 ```
-https://helps-near-backend.vercel.app
+helps-near-backend-blond.vercel.app
 ```
 
 ---

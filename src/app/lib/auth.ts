@@ -8,11 +8,36 @@ import { Role } from "../../generated/prisma/client/enums";
 
 
 export const auth = betterAuth({
-    baseURL: envConfig.BETTER_AUTH_URL,
-    secret: envConfig.BETTER_AUTH_SECRET,
+    baseURL: envConfig.BETTER_AUTH_URL!,
+    secret: envConfig.BETTER_AUTH_SECRET!,
     database: prismaAdapter(prisma, {
         provider: "postgresql", // or "mysql", "postgresql", ...etc
     }),
+    // trustedOrigins: async (request) => {
+    //     const origin = request?.headers.get("origin");
+
+    //     const allowedOrigins = [
+    //         envConfig.FRONTEND_URL! || "https://helps-near-frontend.vercel.app",
+    //         envConfig.BETTER_AUTH_URL! || "helps-near-backend-blond.vercel.app",
+    //         "https://helps-near-frontend.vercel.app",
+    //         "helps-near-backend-blond.vercel.app",
+    //         "https://helps-near-frontend.vercel.app",
+    //         "helps-near-backend-blond.vercel.app",
+    //     ].filter(Boolean);
+
+
+    //     if (
+    //         !origin ||
+    //         allowedOrigins.includes(origin) ||
+    //         /^https:\/\/.*\.vercel\.app$/.test(origin)
+    //     ) {
+    //         return [origin];
+    //     }
+
+    //     return [];
+    // },
+   trustedOrigins : [process.env.FRONTEND_URL! || "https://helps-near-frontend.vercel.app", process.env.BETTER_AUTH_URL! || "helps-near-backend-blond.vercel.app"],
+
     emailAndPassword: {
         enabled: true,
         requireEmailVerification: true
@@ -61,41 +86,66 @@ export const auth = betterAuth({
             expiresIn: 10 * 60,
             otpLength: 6
         }),
-            oAuthProxy()
+        oAuthProxy()
     ],
-    trustedOrigins: [
-        "http://localhost:3000",
-        process.env.FRONTEND_URL || "http://localhost:3000",
-    ],
+
     session: {
         expiresIn: 60 * 60 * 24 * 7,
-        updateAge: 60 * 60 * 24,
+        updateAge: 60 * 60 * 60 * 24,
         cookieCache: {
             enabled: true,
-            maxAge: 60 * 60 * 24 * 7,
+            maxAge: 60 * 60 * 60 * 24,
         }
     },
+    // advanced: {
+    //     cookiePrefix: "better-auth",
+    //     useSecureCookies: envConfig.NODE_ENV === "production",
+    //     crossSubDomainCookies: {
+    //         enabled: false,
+    //     },
+    //     disableCSRFCheck: true,
+    //     cookies: {
+    //         state: {
+    //             attributes: {
+    //                 sameSite: "none",
+    //                 secure: true,
+    //                 httpOnly: true,
+    //                  partitioned: true,
+    //             },
+
+
+    //         }, sessionToken: {
+    //             attributes: {
+    //                 sameSite: "none",
+    //                 secure: true,
+    //                 httpOnly: true,
+    //                 partitioned: true,
+    //             }
+    //         }
+    //     }
+    // }
     advanced: {
-        useSecureCookies: false,
         cookies: {
-            state: {
+            session_token: {
+                name: "session_token", // Force this exact name
                 attributes: {
-                    sameSite: "none",
-                    secure: true,
                     httpOnly: true,
+                    secure: true,
+                    sameSite: "none",
                     partitioned: true,
                 },
-
-
-            }, sessionToken: {
+            },
+            state: {
+                name: "session_token", // Force this exact name
                 attributes: {
-                    sameSite: "none",
-                    secure: true,
                     httpOnly: true,
+                    secure: true,
+                    sameSite: "none",
                     partitioned: true,
-                }
-            }
-        }
-    }
+                },
+            },
+        },
+    },
+
 
 });

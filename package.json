@@ -4,22 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx tsx watch src/server.ts",
-    "lint": "eslint ./src/**/*",
-    "migrate": "prisma migrate dev",
-    "generate": "prisma generate",
+    "dev": "npx tsx watch ts-node-dev --respawn --transpile-only src/server.ts",
+    "lintate": "prisma migrate dev",
+    "generat": "eslint ./src/**/*",
+    "migre": "prisma generate",
     "studio": "prisma studio",
     "push": "prisma db push",
     "pull": "prisma db pull",
     "stripe:webhook": "stripe listen --forward-to localhost:5000/webhook",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "prisma generate && tsc  && node scripts/fix-imports.js",
-    "build:tsup" : "tsup"
+    "build:tsup": "tsup",
+    "build": "tsup src/server.ts",
+    "start": "node dist/server.js",
+    "postinstall": "prisma generate",
+    "lint": "eslint ./src/**/*"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "@prisma/adapter-pg": "^7.5.0",
     "@prisma/client": "^7.5.0",
@@ -35,8 +38,10 @@
     "jsonwebtoken": "^9.0.3",
     "nodemailer": "^8.0.3",
     "pg": "^8.20.0",
+    "save-dev": "^0.0.1-security",
+    "serverless-http": "^4.0.0",
     "stripe": "^21.0.1",
-    "vercel": "^50.37.3"
+    "tsup": "^8.5.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

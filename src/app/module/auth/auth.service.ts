@@ -28,24 +28,24 @@ const createUser = async (payload: ICreateUserPayload) => {
         });
 
 
-        const accessToken = tokenUtils.getAccessToken({
-            id: data.user.id,
-            email: data.user.email,
-            role: data.user.role,
-            emailVerified: data.user.emailVerified
-        });
+        // const accessToken = tokenUtils.getAccessToken({
+        //     id: data.user.id,
+        //     email: data.user.email,
+        //     role: data.user.role,
+        //     emailVerified: data.user.emailVerified
+        // });
 
-        const refreshToken = tokenUtils.getRefreshToken({
-            id: data.user.id,
-            email: data.user.email,
-            role: data.user.role,
-            emailVerfied: data.user.emailVerified
-        });
+        // const refreshToken = tokenUtils.getRefreshToken({
+        //     id: data.user.id,
+        //     email: data.user.email,
+        //     role: data.user.role,
+        //     emailVerfied: data.user.emailVerified
+        // });
 
         return {
             ...data,
-            accessToken,
-            refreshToken,
+            // accessToken,
+            // refreshToken,
             user
         };
 
@@ -134,25 +134,25 @@ const verifyEmail = async (otp: string, email: string) => {
     return result;
 }
 const resendOtp = async (email: string) => {
-  const user = await prisma.user.findUnique({
-    where: { email }
-  });
+    const user = await prisma.user.findUnique({
+        where: { email }
+    });
 
-  if (!user) {
-    throw new AppError(status.NOT_FOUND, "User not found");
-  }
-
-  if (user.emailVerified) {
-    throw new AppError(status.BAD_REQUEST, "Email already verified");
-  }
-  const result = await auth.api.sendVerificationOTP({
-    body: {
-      email,
-      type: "email-verification"
+    if (!user) {
+        throw new AppError(status.NOT_FOUND, "User not found");
     }
-  });
 
-  return result;
+    if (user.emailVerified) {
+        throw new AppError(status.BAD_REQUEST, "Email already verified");
+    }
+    const result = await auth.api.sendVerificationOTP({
+        body: {
+            email,
+            type: "email-verification"
+        }
+    });
+
+    return result;
 };
 
 const logout = async (sessionToken: string) => {
