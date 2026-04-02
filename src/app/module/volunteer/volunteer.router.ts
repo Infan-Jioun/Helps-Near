@@ -5,7 +5,7 @@ import { volunteerController } from "./volunteer.controller";
 import { volunteerValidation } from "./volunteer.validation";
 import { Role } from "../../../generated/prisma/client/enums";
 const router = express.Router();
-router.get("/", checkAuth(Role.ADMIN), volunteerController.getAllVolunteers)
+router.get("/", volunteerController.getAllVolunteers)
 router.get(
     "/myprofile",
     checkAuth(Role.VOLUNTEER),

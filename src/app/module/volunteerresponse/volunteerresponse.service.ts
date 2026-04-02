@@ -123,6 +123,7 @@ const getMyResponses = async (volunteerId: string) => {
                             id: true,
                             name: true,
                             phone: true,
+                            email: true
                         },
                     },
                 },

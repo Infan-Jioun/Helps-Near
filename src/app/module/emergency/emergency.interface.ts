@@ -10,6 +10,7 @@ export interface ICreateEmargency {
     address?: string;
     district?: string;
     isPriority?: boolean;
+
 }
 export interface IUpdateEmergency {
     status?: EmergencyStatus;

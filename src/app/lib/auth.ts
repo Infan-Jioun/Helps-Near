@@ -86,7 +86,7 @@ export const auth = betterAuth({
             expiresIn: 10 * 60,
             otpLength: 6
         }),
-        oAuthProxy()
+        // oAuthProxy()
     ],
 
     session: {

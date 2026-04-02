@@ -12,50 +12,9 @@ const getMyEmargencies = async (userId: string) => {
             },
             include: {
                 user: {
-                    select: {
-                        id: true,
-                        name: true,
-                        email: true,
-                        phone: true,
-                        profileImage: true,
-                        emergencies: {
-                            select: {
-                                id: true,
-                                type: true,
-                                description: true,
-                                imageUrl: true,
-                                latitude: true,
-                                longitude: true,
-                                address: true,
-                                district: true,
-                                isPriority: true,
-                                status: true,
-                                createdAt: true,
-                                updatedAt: true,
-                                responses: {
-                                    select: {
-                                        id: true,
-                                        responderName: true,
-                                        responderContact: true,
-                                        message: true,
-                                        createdAt: true,
-                                    }
-                                }
-                            }
-                        },
-                        payments: {
-                            select: {
-                                id: true,
-                                amount: true,
-                                method: true,
-                                status: true,
-                                createdAt: true,
-                                emergency: true
-                            }
-                        }
-                    }
-                }
-
+                    select: { id: true, name: true, email: true, phone: true },
+                },
+                responses: true,
             },
             orderBy: { createdAt: "desc" },
         });
@@ -114,9 +73,7 @@ const getEmargencyById = async (id: string, userId: string, userRole: string) =>
     if (!emergency) {
         throw new Error("Emergency not found");
     }
-    if (userRole !== "ADMIN" && emergency.userId !== userId) {
-        throw new Error("You are not authorized to view this emergency");
-    }
+   
 
     return emergency;
 };

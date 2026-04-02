@@ -9,7 +9,7 @@ import { SendEmailOptions } from "../interface/sendEmailOptions";
 
 const transporter = nodemailer.createTransport({
     host: envConfig.EMAIL_SENDER_SMTP_HOST,
-    secure: false,
+    secure: true,
     auth: {
         user: envConfig.EMAIL_SENDER_SMTP_USER,
         pass: envConfig.EMAIL_SENDER_SMTP_PASS
