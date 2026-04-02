@@ -110,29 +110,40 @@ const getMyProfile = async (userId: string) => {
         },
     });
 
-    if (!user) throw new Error("User not found");
+    if (!user) throw new AppError(status.NOT_FOUND, "User not found");
     return user;
 };
 
 const verifyEmail = async (otp: string, email: string) => {
-    const result = await auth.api.verifyEmailOTP({
-        body: {
-            email,
-            otp
+    try {
+        const result = await auth.api.verifyEmailOTP({
+            body: { email, otp }
+        });
+        if (!result || !result.status) {
+            throw new AppError(status.BAD_REQUEST, "Invalid or expired OTP");
         }
-    })
-    if (result.status && !result.user.emailVerified) {
-        await prisma.user.update({
-            where: {
-                id: result.user.id
-            },
-            data: {
-                emailVerified: true
-            }
-        })
+
+        if (!result.user) {
+            throw new AppError(status.NOT_FOUND, "User not found");
+        }
+        if (!result.user.emailVerified) {
+            await prisma.user.update({
+                where: { id: result.user.id },
+                data: { emailVerified: true }
+            });
+        }
+
+        return result;
+
+    } catch (error: any) {
+        console.error("VERIFY OTP ERROR:", error);
+
+        throw new AppError(
+            status.BAD_REQUEST,
+            error?.message || "Failed to verify email"
+        );
     }
-    return result;
-}
+};
 const resendOtp = async (email: string) => {
     const user = await prisma.user.findUnique({
         where: { email }

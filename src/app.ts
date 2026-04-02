@@ -33,9 +33,9 @@ app.use(cors({
         envConfig.FRONTEND_URL || "https://helps-near-frontend.vercel.app",
     ],
     credentials: true,
-    // methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
-    // allowedHeaders: ["content-type", "Authorization", "Cookie", "Set-Cookie"],
-    // exposedHeaders: ["Set-Cookie"],
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["content-type", "Authorization", "Cookie", "Set-Cookie"],
+    exposedHeaders: ["Set-Cookie"],
 }));
 // app.use(
 //     cors({
@@ -73,6 +73,6 @@ app.use("/api/v1/payment", paymentRouter)
 app.get('/', (req, res) => {
     res.send("Helps Near successfully running")
 });
-// app.use(globalErrorHandlar)
-// app.use(notFound)
+app.use(globalErrorHandlar)
+app.use(notFound)
 export default app;

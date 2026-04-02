@@ -8,7 +8,7 @@ import { Role } from "../../generated/prisma/client/enums";
 
 
 export const auth = betterAuth({
-    baseURL: envConfig.BETTER_AUTH_URL! || "http://localhost:5000",
+    baseURL: envConfig.BETTER_AUTH_URL! || "https://helps-near-backend-blond.vercel.app",
     secret: envConfig.BETTER_AUTH_SECRET!,
     database: prismaAdapter(prisma, {
         provider: "postgresql", // or "mysql", "postgresql", ...etc
@@ -36,7 +36,7 @@ export const auth = betterAuth({
 
     //     return [];
     // },
-    trustedOrigins: [process.env.FRONTEND_URL! || "https://helps-near-frontend.vercel.app", process.env.BETTER_AUTH_URL! || "https://helps-near-backend-blond.vercel.app"],
+   trustedOrigins : [process.env.FRONTEND_URL! || "https://helps-near-frontend.vercel.app", process.env.BETTER_AUTH_URL! || "https://helps-near-backend-blond.vercel.app"],
 
     emailAndPassword: {
         enabled: true,

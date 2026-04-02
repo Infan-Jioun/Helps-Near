@@ -1,38 +1,84 @@
-import nodemailler from "nodemailer";
-import { envConfig } from "../../config/env";
-import { SendEmailOptions } from "../interface/sendEmailOptions";
-import AppError from "../errorHelper/appError";
-import status from "http-status";
+import nodemailer from "nodemailer";
 import path from "path";
-import ejs from 'ejs';
-const transporter = nodemailler.createTransport({
-    host: envConfig.EMAIL_SENDER_SMTP_HOST,
-    secure: false,
-    auth: {
-        user: envConfig.EMAIL_SENDER_SMTP_USER,
-        pass: envConfig.EMAIL_SENDER_SMTP_PASS
-    },
-    port: Number(envConfig.EMAIL_SENDER_SMTP_PORT)
-})
-export const sendEmail = async ({ subject, templateName, templateData, to, attachments }: SendEmailOptions) => {
-    try {
-        const templatePath = path.resolve(process.cwd(), `src/app/templates/${templateName}.ejs`);
+import ejs from "ejs";
 
-        const html = await ejs.renderFile(templatePath, templateData);
-        const info = await transporter.sendMail({
-            from: envConfig.EMAIL_SENDER_SMTP_FROM,
-            subject: subject,
-            to: to,
-            html: html,
-            attachments: attachments?.map((attachment) => ({
-                fileName: attachment.fileName,
-                content: attachment.content,
-                contentType: typeof attachment.contentType === 'string' ? attachment.contentType : undefined
-            }))
-        })
-        console.log(`Email send to ${to} : ${info.messageId} `);
+// ✅ Transporter (production safe)
+const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_SENDER_SMTP_HOST,
+    port: Number(process.env.EMAIL_SENDER_SMTP_PORT) || 587,
+    secure: false, // MUST false for 587
+    auth: {
+        user: process.env.EMAIL_SENDER_SMTP_USER,
+        pass: process.env.EMAIL_SENDER_SMTP_PASS,
+    },
+});
+
+// ✅ Debug (important)
+export const verifyEmailConfig = async () => {
+    try {
+        await transporter.verify();
+        console.log("✅ SMTP connection successful");
     } catch (error) {
-        console.log("email error",error)
-        throw new AppError(status.INTERNAL_SERVER_ERROR, "Failed to send email!")
+        console.error("❌ SMTP connection failed:", error);
     }
-}
+};
+
+type SendEmailOptions = {
+    to: string;
+    subject: string;
+    templateName?: string;
+    templateData?: Record<string, any>;
+    html?: string;
+    attachments?: {
+        fileName: string;
+        content: Buffer | string;
+        contentType?: string;
+    }[];
+};
+
+// ✅ Main function
+export const sendEmail = async ({
+    to,
+    subject,
+    templateName,
+    templateData,
+    html,
+    attachments,
+}: SendEmailOptions) => {
+    try {
+        let finalHtml = html;
+
+        // ✅ Template support (SAFE PATH)
+        if (templateName) {
+            const templatePath = path.join(
+                process.cwd(),
+                "templates", // ⚠️ MUST be root level folder (NOT inside src)
+                `${templateName}.ejs`
+            );
+
+            finalHtml = await ejs.renderFile(templatePath, templateData || {});
+        }
+
+        if (!finalHtml) {
+            throw new Error("No HTML content provided");
+        }
+
+        const info = await transporter.sendMail({
+            from: process.env.EMAIL_SENDER_SMTP_FROM,
+            to,
+            subject,
+            html: finalHtml,
+            attachments: attachments?.map((att) => ({
+                filename: att.fileName, // ✅ FIXED
+                content: att.content,
+                contentType: att.contentType,
+            })),
+        });
+
+        console.log("✅ Email sent:", info.messageId);
+        return info;
+    } catch (error: any) {
+        console.error("❌ EMAIL ERROR FULL:", error);
+        throw new Error("Failed to send email");
+    }
+};

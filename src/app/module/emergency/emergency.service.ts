@@ -36,18 +36,28 @@ const getAllEmargencies = async () => {
     });
 };
 
-const getEmargencyById = async (id: string) => {
+const getEmargencyById = async (id: string, userId: string, userRole: string) => {
     const emergency = await prisma.emergency.findUnique({
         where: { id },
         include: {
-            user: { select: { id: true, name: true, email: true, phone: true } },
+            user: {
+                select: { id: true, name: true, email: true, phone: true },
+            },
             responses: true,
         },
     });
-    if (!emergency) throw new Error("Emergency not found");
+
+    if (!emergency) {
+        throw new Error("Emergency not found");
+    }
+
+    // ADMIN সব দেখতে পারবে, USER শুধু নিজেরটা
+    if (userRole !== "ADMIN" && emergency.userId !== userId) {
+        throw new Error("You are not authorized to view this emergency");
+    }
+
     return emergency;
 };
-
 const updateEmargency = async (id: string, userId: string, userRole: string, payload: IUpdateEmergency) => {
     const emergency = await prisma.emergency.findUnique({ where: { id } });
     if (!emergency) throw new Error("Emergency not found");

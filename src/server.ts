@@ -1,8 +1,6 @@
 import app from "./app";
 import { prisma } from "./app/lib/prisma";
 
-
-
 const bootstrap = async () => {
     try {
         await prisma.$connect();

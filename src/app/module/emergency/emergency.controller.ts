@@ -30,7 +30,9 @@ const getAllEmargencies = catchAsync(async (req: Request, res: Response) => {
 
 const getEmargencyById = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const result = await emargencyService.getEmargencyById(id as string);
+    const userId = req.user?.userId;
+    const userRole = req.user?.role;
+    const result = await emargencyService.getEmargencyById(id as string, userId as string, userRole as string);
     sendResposne(res, {
         httpStatusCode: status.OK,
         message: "Emergency fetched successfully",
