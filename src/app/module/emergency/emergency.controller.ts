@@ -4,7 +4,18 @@ import { emargencyService } from "./emergency.service";
 import { sendResposne } from "../../../shared/sendResponse";
 import status from "http-status";
 import { ICreateEmargency } from "./emergency.interface";
+import { IRequestUser } from "../../interface/requestUserInterface";
+const getMyEmargencies = catchAsync(async (req: Request, res: Response) => {
+const userId = req.user?.userId
+    const result = await emargencyService.getMyEmargencies(userId as string);
 
+    sendResposne(res, {
+        httpStatusCode: status.OK,
+        message: "My emergencies fetched successfully",
+        success: true,
+        data: result,
+    });
+});
 const createEmargency = catchAsync(
     async (req: Request, res: Response) => {
         const userId = req.user?.userId;
@@ -69,8 +80,8 @@ const deleteEmargency = catchAsync(async (req: Request, res: Response) => {
 
 
 export const emargencyController = {
+    getMyEmargencies,
     createEmargency,
-
     getAllEmargencies,
     getEmargencyById,
     updateEmargency,

@@ -6,10 +6,15 @@ import { createEmergencySchema, updateEmergencySchema } from "./emergency.valida
 import { Role } from "../../../generated/prisma/client/enums";
 
 const router = express.Router();
-
+router.get(
+    "/my-emergencies",
+    checkAuth(Role.USER, Role.ADMIN, Role.VOLUNTEER),
+    emargencyController.getMyEmargencies
+);
 router.post("/", checkAuth(Role.USER, Role.ADMIN, Role.VOLUNTEER),
     validateRequest(createEmergencySchema), emargencyController.createEmargency);
 router.get("/", emargencyController.getAllEmargencies);
+
 router.get("/:id", checkAuth(Role.USER, Role.ADMIN, Role.VOLUNTEER), emargencyController.getEmargencyById);
 router.patch("/:id", checkAuth(Role.USER, Role.ADMIN, Role.VOLUNTEER), validateRequest(updateEmergencySchema), emargencyController.updateEmargency);
 router.delete("/:id", checkAuth(Role.USER, Role.ADMIN, Role.VOLUNTEER), emargencyController.deleteEmargency);
