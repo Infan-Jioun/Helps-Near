@@ -6,7 +6,7 @@ import status from "http-status";
 import { ICreateEmargency } from "./emergency.interface";
 import { IRequestUser } from "../../interface/requestUserInterface";
 const getMyEmargencies = catchAsync(async (req: Request, res: Response) => {
-const userId = req.user?.userId
+    const userId = req.user?.userId
     const result = await emargencyService.getMyEmargencies(userId as string);
 
     sendResposne(res, {
@@ -30,9 +30,17 @@ const createEmargency = catchAsync(
     }
 )
 const getAllEmargencies = catchAsync(async (req: Request, res: Response) => {
-    const result = await emargencyService.getAllEmargencies();
+    const { type, status, district, isPriority, page, limit } = req.query;
+    const result = await emargencyService.getAllEmargencies({
+        type: type as string,
+        status: status as string,
+        district: district as string,
+        isPriority: isPriority as string,
+        page: Number(page) || 1,
+        limit: Number(limit) || 20,
+    });
     sendResposne(res, {
-        httpStatusCode: status.OK,
+        httpStatusCode: 200,
         message: "Emergencies fetched successfully!",
         success: true,
         data: result,

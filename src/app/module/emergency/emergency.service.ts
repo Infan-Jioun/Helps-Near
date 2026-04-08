@@ -49,13 +49,53 @@ const createEmargency = async (userId: string, payload: ICreateEmargency) => {
     })
     return result;
 }
-const getAllEmargencies = async () => {
-    return await prisma.emergency.findMany({
-        orderBy: [{ isPriority: "desc" }, { createdAt: "desc" }],
-        include: {
-            user: { select: { id: true, name: true, email: true } },
-        },
-    });
+const getAllEmargencies = async (filters?: {
+    type?: string;
+    status?: string;
+    district?: string;
+    isPriority?: string;
+    page?: number;
+    limit?: number;
+}) => {
+    const where: any = {};
+
+    if (filters?.type && filters.type !== "ALL") {
+        where.type = filters.type;
+    }
+
+    if (filters?.status && filters.status !== "ALL") {
+        where.status = filters.status;
+    }
+
+    if (filters?.district && filters.district.trim()) {
+        where.district = {
+            contains: filters.district.trim(),
+            mode: "insensitive",
+        };
+    }
+
+    if (filters?.isPriority && filters.isPriority !== "ALL") {
+        where.isPriority = filters.isPriority === "true";
+    }
+
+    const page = Number(filters?.page) || 1;
+    const limit = Number(filters?.limit) || 20;
+    const skip = (page - 1) * limit;
+
+    const [data, total] = await Promise.all([
+        prisma.emergency.findMany({
+            where,
+            orderBy: [{ isPriority: "desc" }, { createdAt: "desc" }],
+            include: {
+                user: { select: { id: true, name: true, email: true } },
+            },
+            skip,
+            take: limit,
+        }),
+        prisma.emergency.count({ where }),
+    ]);
+
+    return { data, total, page, limit };
 };
 
 
@@ -73,7 +113,7 @@ const getEmargencyById = async (id: string, userId: string, userRole: string) =>
     if (!emergency) {
         throw new Error("Emergency not found");
     }
-   
+
 
     return emergency;
 };

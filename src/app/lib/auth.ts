@@ -69,7 +69,7 @@ export const auth = betterAuth({
                         }
                     })
                     if (user && !user.emailVerified) {
-                        sendEmail({
+                       await sendEmail({
                             to: email,
                             subject: "Verify your email",
                             templateName: "otp",
@@ -91,10 +91,10 @@ export const auth = betterAuth({
 
     session: {
         expiresIn: 60 * 60 * 24 * 7,
-        updateAge: 60 * 60 * 60 * 24,
+        updateAge: 60 * 60 * 24,
         cookieCache: {
             enabled: true,
-            maxAge: 60 * 60 * 60 * 24,
+            maxAge: 60 * 60 * 24,
         }
     },
     // advanced: {

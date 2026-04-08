@@ -9,14 +9,14 @@ import { volunteerResponseValidation } from "./volunteerresponse.validation";
 
 const router = express.Router();
 
-router.get("/my", checkAuth(Role.VOLUNTEER), volunteerResponseController.getMyResponses);
+router.get("/my", checkAuth( Role.VOLUNTEER), volunteerResponseController.getMyResponses);
 
 router.post("/:emergencyId", checkAuth(Role.VOLUNTEER), validateRequest(volunteerResponseValidation.createVolunteerResponseSchema), volunteerResponseController.acceptEmergency
 );
 
 router.get(
     "/:emergencyId",
-    checkAuth(Role.ADMIN, Role.VOLUNTEER),
+    checkAuth(Role.ADMIN, Role.VOLUNTEER , Role.USER),
     volunteerResponseController.getResponsesByEmergencyId
 );
 
