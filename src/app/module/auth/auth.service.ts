@@ -226,7 +226,7 @@ const getNewToken = async (refreshToken: string, sessionToken: string) => {
 const googleLoginSuccess = async (session: Record<string, any>) => {
     const isPatientExists = await prisma.user.findUnique({
         where: {
-            id: session.id
+            id : session.id
         }
     })
     if (!isPatientExists) {

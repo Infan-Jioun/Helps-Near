@@ -17,6 +17,7 @@ export const auth = betterAuth({
         google: {
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            redirectURI: `${envConfig.BETTER_AUTH_URL}/api/auth/callback/google`,
         },
     },
     // trustedOrigins: async (request) => {
@@ -92,7 +93,7 @@ export const auth = betterAuth({
             expiresIn: 10 * 60,
             otpLength: 6
         }),
-        // oAuthProxy()
+        oAuthProxy()
     ],
 
     session: {

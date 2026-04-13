@@ -83,8 +83,9 @@ const loadEnvVaribales = (): IEnvConfig => {
         STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET as string,
         STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY as string,
         GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID as string,
+        GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET as string,
         RESEND_API_KEY: process.env.RESEND_API_KEY as string,
-        GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET as string
+
     }
 }
 export const envConfig = loadEnvVaribales();
