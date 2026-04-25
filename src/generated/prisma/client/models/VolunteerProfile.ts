@@ -29,6 +29,7 @@ export type AggregateVolunteerProfile = {
 export type VolunteerProfileAvgAggregateOutputType = {
   totalHelped: number | null
   averageRating: number | null
+  fee: number | null
   latitude: number | null
   longitude: number | null
 }
@@ -36,6 +37,7 @@ export type VolunteerProfileAvgAggregateOutputType = {
 export type VolunteerProfileSumAggregateOutputType = {
   totalHelped: number | null
   averageRating: number | null
+  fee: number | null
   latitude: number | null
   longitude: number | null
 }
@@ -50,6 +52,8 @@ export type VolunteerProfileMinAggregateOutputType = {
   totalHelped: number | null
   averageRating: number | null
   bio: string | null
+  fee: number | null
+  isFree: boolean | null
   latitude: number | null
   longitude: number | null
   lastSeenAt: Date | null
@@ -67,6 +71,8 @@ export type VolunteerProfileMaxAggregateOutputType = {
   totalHelped: number | null
   averageRating: number | null
   bio: string | null
+  fee: number | null
+  isFree: boolean | null
   latitude: number | null
   longitude: number | null
   lastSeenAt: Date | null
@@ -85,6 +91,8 @@ export type VolunteerProfileCountAggregateOutputType = {
   totalHelped: number
   averageRating: number
   bio: number
+  fee: number
+  isFree: number
   latitude: number
   longitude: number
   lastSeenAt: number
@@ -97,6 +105,7 @@ export type VolunteerProfileCountAggregateOutputType = {
 export type VolunteerProfileAvgAggregateInputType = {
   totalHelped?: true
   averageRating?: true
+  fee?: true
   latitude?: true
   longitude?: true
 }
@@ -104,6 +113,7 @@ export type VolunteerProfileAvgAggregateInputType = {
 export type VolunteerProfileSumAggregateInputType = {
   totalHelped?: true
   averageRating?: true
+  fee?: true
   latitude?: true
   longitude?: true
 }
@@ -118,6 +128,8 @@ export type VolunteerProfileMinAggregateInputType = {
   totalHelped?: true
   averageRating?: true
   bio?: true
+  fee?: true
+  isFree?: true
   latitude?: true
   longitude?: true
   lastSeenAt?: true
@@ -135,6 +147,8 @@ export type VolunteerProfileMaxAggregateInputType = {
   totalHelped?: true
   averageRating?: true
   bio?: true
+  fee?: true
+  isFree?: true
   latitude?: true
   longitude?: true
   lastSeenAt?: true
@@ -153,6 +167,8 @@ export type VolunteerProfileCountAggregateInputType = {
   totalHelped?: true
   averageRating?: true
   bio?: true
+  fee?: true
+  isFree?: true
   latitude?: true
   longitude?: true
   lastSeenAt?: true
@@ -258,6 +274,8 @@ export type VolunteerProfileGroupByOutputType = {
   totalHelped: number
   averageRating: number
   bio: string | null
+  fee: number
+  isFree: boolean
   latitude: number | null
   longitude: number | null
   lastSeenAt: Date | null
@@ -299,6 +317,8 @@ export type VolunteerProfileWhereInput = {
   totalHelped?: Prisma.IntFilter<"VolunteerProfile"> | number
   averageRating?: Prisma.FloatFilter<"VolunteerProfile"> | number
   bio?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
+  fee?: Prisma.FloatFilter<"VolunteerProfile"> | number
+  isFree?: Prisma.BoolFilter<"VolunteerProfile"> | boolean
   latitude?: Prisma.FloatNullableFilter<"VolunteerProfile"> | number | null
   longitude?: Prisma.FloatNullableFilter<"VolunteerProfile"> | number | null
   lastSeenAt?: Prisma.DateTimeNullableFilter<"VolunteerProfile"> | Date | string | null
@@ -318,6 +338,8 @@ export type VolunteerProfileOrderByWithRelationInput = {
   totalHelped?: Prisma.SortOrder
   averageRating?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  fee?: Prisma.SortOrder
+  isFree?: Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -340,6 +362,8 @@ export type VolunteerProfileWhereUniqueInput = Prisma.AtLeast<{
   totalHelped?: Prisma.IntFilter<"VolunteerProfile"> | number
   averageRating?: Prisma.FloatFilter<"VolunteerProfile"> | number
   bio?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
+  fee?: Prisma.FloatFilter<"VolunteerProfile"> | number
+  isFree?: Prisma.BoolFilter<"VolunteerProfile"> | boolean
   latitude?: Prisma.FloatNullableFilter<"VolunteerProfile"> | number | null
   longitude?: Prisma.FloatNullableFilter<"VolunteerProfile"> | number | null
   lastSeenAt?: Prisma.DateTimeNullableFilter<"VolunteerProfile"> | Date | string | null
@@ -359,6 +383,8 @@ export type VolunteerProfileOrderByWithAggregationInput = {
   totalHelped?: Prisma.SortOrder
   averageRating?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  fee?: Prisma.SortOrder
+  isFree?: Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -385,6 +411,8 @@ export type VolunteerProfileScalarWhereWithAggregatesInput = {
   totalHelped?: Prisma.IntWithAggregatesFilter<"VolunteerProfile"> | number
   averageRating?: Prisma.FloatWithAggregatesFilter<"VolunteerProfile"> | number
   bio?: Prisma.StringNullableWithAggregatesFilter<"VolunteerProfile"> | string | null
+  fee?: Prisma.FloatWithAggregatesFilter<"VolunteerProfile"> | number
+  isFree?: Prisma.BoolWithAggregatesFilter<"VolunteerProfile"> | boolean
   latitude?: Prisma.FloatNullableWithAggregatesFilter<"VolunteerProfile"> | number | null
   longitude?: Prisma.FloatNullableWithAggregatesFilter<"VolunteerProfile"> | number | null
   lastSeenAt?: Prisma.DateTimeNullableWithAggregatesFilter<"VolunteerProfile"> | Date | string | null
@@ -402,6 +430,8 @@ export type VolunteerProfileCreateInput = {
   totalHelped?: number
   averageRating?: number
   bio?: string | null
+  fee: number
+  isFree?: boolean
   latitude?: number | null
   longitude?: number | null
   lastSeenAt?: Date | string | null
@@ -421,6 +451,8 @@ export type VolunteerProfileUncheckedCreateInput = {
   totalHelped?: number
   averageRating?: number
   bio?: string | null
+  fee: number
+  isFree?: boolean
   latitude?: number | null
   longitude?: number | null
   lastSeenAt?: Date | string | null
@@ -438,6 +470,8 @@ export type VolunteerProfileUpdateInput = {
   totalHelped?: Prisma.IntFieldUpdateOperationsInput | number
   averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fee?: Prisma.FloatFieldUpdateOperationsInput | number
+  isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -457,6 +491,8 @@ export type VolunteerProfileUncheckedUpdateInput = {
   totalHelped?: Prisma.IntFieldUpdateOperationsInput | number
   averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fee?: Prisma.FloatFieldUpdateOperationsInput | number
+  isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -475,6 +511,8 @@ export type VolunteerProfileCreateManyInput = {
   totalHelped?: number
   averageRating?: number
   bio?: string | null
+  fee: number
+  isFree?: boolean
   latitude?: number | null
   longitude?: number | null
   lastSeenAt?: Date | string | null
@@ -492,6 +530,8 @@ export type VolunteerProfileUpdateManyMutationInput = {
   totalHelped?: Prisma.IntFieldUpdateOperationsInput | number
   averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fee?: Prisma.FloatFieldUpdateOperationsInput | number
+  isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -510,6 +550,8 @@ export type VolunteerProfileUncheckedUpdateManyInput = {
   totalHelped?: Prisma.IntFieldUpdateOperationsInput | number
   averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fee?: Prisma.FloatFieldUpdateOperationsInput | number
+  isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -541,6 +583,8 @@ export type VolunteerProfileCountOrderByAggregateInput = {
   totalHelped?: Prisma.SortOrder
   averageRating?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  fee?: Prisma.SortOrder
+  isFree?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
@@ -551,6 +595,7 @@ export type VolunteerProfileCountOrderByAggregateInput = {
 export type VolunteerProfileAvgOrderByAggregateInput = {
   totalHelped?: Prisma.SortOrder
   averageRating?: Prisma.SortOrder
+  fee?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
 }
@@ -565,6 +610,8 @@ export type VolunteerProfileMaxOrderByAggregateInput = {
   totalHelped?: Prisma.SortOrder
   averageRating?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  fee?: Prisma.SortOrder
+  isFree?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
@@ -582,6 +629,8 @@ export type VolunteerProfileMinOrderByAggregateInput = {
   totalHelped?: Prisma.SortOrder
   averageRating?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  fee?: Prisma.SortOrder
+  isFree?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
@@ -592,6 +641,7 @@ export type VolunteerProfileMinOrderByAggregateInput = {
 export type VolunteerProfileSumOrderByAggregateInput = {
   totalHelped?: Prisma.SortOrder
   averageRating?: Prisma.SortOrder
+  fee?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
 }
@@ -663,6 +713,8 @@ export type VolunteerProfileCreateWithoutUserInput = {
   totalHelped?: number
   averageRating?: number
   bio?: string | null
+  fee: number
+  isFree?: boolean
   latitude?: number | null
   longitude?: number | null
   lastSeenAt?: Date | string | null
@@ -680,6 +732,8 @@ export type VolunteerProfileUncheckedCreateWithoutUserInput = {
   totalHelped?: number
   averageRating?: number
   bio?: string | null
+  fee: number
+  isFree?: boolean
   latitude?: number | null
   longitude?: number | null
   lastSeenAt?: Date | string | null
@@ -713,6 +767,8 @@ export type VolunteerProfileUpdateWithoutUserInput = {
   totalHelped?: Prisma.IntFieldUpdateOperationsInput | number
   averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fee?: Prisma.FloatFieldUpdateOperationsInput | number
+  isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -730,6 +786,8 @@ export type VolunteerProfileUncheckedUpdateWithoutUserInput = {
   totalHelped?: Prisma.IntFieldUpdateOperationsInput | number
   averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fee?: Prisma.FloatFieldUpdateOperationsInput | number
+  isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -750,6 +808,8 @@ export type VolunteerProfileSelect<ExtArgs extends runtime.Types.Extensions.Inte
   totalHelped?: boolean
   averageRating?: boolean
   bio?: boolean
+  fee?: boolean
+  isFree?: boolean
   latitude?: boolean
   longitude?: boolean
   lastSeenAt?: boolean
@@ -769,6 +829,8 @@ export type VolunteerProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   totalHelped?: boolean
   averageRating?: boolean
   bio?: boolean
+  fee?: boolean
+  isFree?: boolean
   latitude?: boolean
   longitude?: boolean
   lastSeenAt?: boolean
@@ -788,6 +850,8 @@ export type VolunteerProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   totalHelped?: boolean
   averageRating?: boolean
   bio?: boolean
+  fee?: boolean
+  isFree?: boolean
   latitude?: boolean
   longitude?: boolean
   lastSeenAt?: boolean
@@ -807,6 +871,8 @@ export type VolunteerProfileSelectScalar = {
   totalHelped?: boolean
   averageRating?: boolean
   bio?: boolean
+  fee?: boolean
+  isFree?: boolean
   latitude?: boolean
   longitude?: boolean
   lastSeenAt?: boolean
@@ -814,7 +880,7 @@ export type VolunteerProfileSelectScalar = {
   updatedAt?: boolean
 }
 
-export type VolunteerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "email" | "nidNumber" | "skills" | "isVerified" | "totalHelped" | "averageRating" | "bio" | "latitude" | "longitude" | "lastSeenAt" | "createdAt" | "updatedAt", ExtArgs["result"]["volunteerProfile"]>
+export type VolunteerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "email" | "nidNumber" | "skills" | "isVerified" | "totalHelped" | "averageRating" | "bio" | "fee" | "isFree" | "latitude" | "longitude" | "lastSeenAt" | "createdAt" | "updatedAt", ExtArgs["result"]["volunteerProfile"]>
 export type VolunteerProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -841,6 +907,8 @@ export type $VolunteerProfilePayload<ExtArgs extends runtime.Types.Extensions.In
     totalHelped: number
     averageRating: number
     bio: string | null
+    fee: number
+    isFree: boolean
     latitude: number | null
     longitude: number | null
     lastSeenAt: Date | null
@@ -1280,6 +1348,8 @@ export interface VolunteerProfileFieldRefs {
   readonly totalHelped: Prisma.FieldRef<"VolunteerProfile", 'Int'>
   readonly averageRating: Prisma.FieldRef<"VolunteerProfile", 'Float'>
   readonly bio: Prisma.FieldRef<"VolunteerProfile", 'String'>
+  readonly fee: Prisma.FieldRef<"VolunteerProfile", 'Float'>
+  readonly isFree: Prisma.FieldRef<"VolunteerProfile", 'Boolean'>
   readonly latitude: Prisma.FieldRef<"VolunteerProfile", 'Float'>
   readonly longitude: Prisma.FieldRef<"VolunteerProfile", 'Float'>
   readonly lastSeenAt: Prisma.FieldRef<"VolunteerProfile", 'DateTime'>

@@ -20,29 +20,8 @@ export const auth = betterAuth({
             redirectURI: `${envConfig.BETTER_AUTH_URL}/api/auth/callback/google`,
         },
     },
-    // trustedOrigins: async (request) => {
-    //     const origin = request?.headers.get("origin");
-
-    //     const allowedOrigins = [
-    //         envConfig.FRONTEND_URL! || "https://helps-near-frontend.vercel.app",
-    //         envConfig.BETTER_AUTH_URL! || "https://helps-near-backend-blond.vercel.app",
-    //         "https://helps-near-frontend.vercel.app",
-    //         "https://helps-near-backend-blond.vercel.app",
-    //         "https://helps-near-frontend.vercel.app",
-    //         "https://helps-near-backend-blond.vercel.app",
-    //     ].filter(Boolean);
-
-
-    //     if (
-    //         !origin ||
-    //         allowedOrigins.includes(origin) ||
-    //         /^https:\/\/.*\.vercel\.app$/.test(origin)
-    //     ) {
-    //         return [origin];
-    //     }
-
-    //     return [];
-    // },
+  
+   
     trustedOrigins: [process.env.FRONTEND_URL! || "https://helps-near-frontend.vercel.app", process.env.BETTER_AUTH_URL! || "https://helps-near-backend-blond.vercel.app"],
 
     emailAndPassword: {

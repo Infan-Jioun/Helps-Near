@@ -169,6 +169,8 @@ export const VolunteerProfileScalarFieldEnum = {
   totalHelped: 'totalHelped',
   averageRating: 'averageRating',
   bio: 'bio',
+  fee: 'fee',
+  isFree: 'isFree',
   latitude: 'latitude',
   longitude: 'longitude',
   lastSeenAt: 'lastSeenAt',

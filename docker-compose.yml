@@ -1,0 +1,32 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: helps-near-app
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    ports:
+      - "5000:5000"
+    networks:
+      - helps-near-net
+
+  nginx:
+    image: nginx:alpine
+    container_name: helps-near-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+    networks:
+      - helps-near-net
+
+networks:
+  helps-near-net:
+    driver: bridge
