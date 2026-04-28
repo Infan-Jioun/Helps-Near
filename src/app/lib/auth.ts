@@ -118,16 +118,16 @@ export const auth = betterAuth({
                     httpOnly: true,
                     secure: true,
                     sameSite: "none",
-                    partitioned: true,
+                    // partitioned: true,
                 },
             },
             state: {
-                name: "session_token", // Force this exact name
+                name: "session_token_better", // Force this exact name
                 attributes: {
                     httpOnly: true,
                     secure: true,
                     sameSite: "none",
-                    partitioned: true,
+                    // partitioned: true,
                 },
             },
         },
