@@ -1,5 +1,5 @@
-import { EmergencyType } from "@prisma/client";
-import { EmergencyStatus } from "../../../generated/prisma/client/enums";
+
+import { EmergencyStatus, EmergencyType } from "../../../generated/prisma/client/enums";
 
 export interface ICreateEmargency {
     type: EmergencyType,

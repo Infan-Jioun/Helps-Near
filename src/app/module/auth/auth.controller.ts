@@ -76,9 +76,9 @@ const logout = catchAsync(async (req: Request, res: Response) => {
         throw new AppError(status.UNAUTHORIZED, "Already logged out!");
     }
     const result = await authService.logout(betterAuthSessionToken);
-    cookieUtils.clearCookie(res, "accessToken", { httpOnly: true, secure: true, sameSite: "none" });
-    cookieUtils.clearCookie(res, "refreshToken", { httpOnly: true, secure: true, sameSite: "none" });
-    cookieUtils.clearCookie(res, "better-auth-session_token", { httpOnly: true, secure: true, sameSite: "none" });
+    cookieUtils.clearCookie(res, "accessToken", { httpOnly: true, secure: true, sameSite: "none", path: "/" });
+    cookieUtils.clearCookie(res, "refreshToken", { httpOnly: true, secure: true, sameSite: "none", path: "/" });
+    cookieUtils.clearCookie(res, "better-auth-session_token", { httpOnly: true, secure: true, sameSite: "none", path: "/" });
     sendResposne(res, {
         httpStatusCode: status.OK,
         success: true,
