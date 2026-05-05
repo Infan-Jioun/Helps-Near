@@ -1,6 +1,6 @@
 # 🚨 Helps Near — Backend
 
-Helps Near is an emergency response platform where users can report emergencies and volunteers can respond to help them. The platform supports real-time emergency management, volunteer coordination, and secure payments.
+Helps Near is an emergency response platform where users can report emergencies and volunteers can respond to help them. The platform supports real-time emergency management, volunteer coordination, and secure payment.
 
 ---
 
